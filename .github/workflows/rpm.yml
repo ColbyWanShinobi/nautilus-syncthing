@@ -1,0 +1,27 @@
+name: RPM
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  build-rpm:
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build dependencies
+        run: dnf -y install python3-build python3-devel python3-setuptools rpm-build rpmdevtools systemd-rpm-macros
+      - name: Build source archive
+        run: python3 -m build --sdist
+      - name: Build RPM
+        run: |
+          rpmdev-setuptree
+          cp dist/nautilus_syncthing-*.tar.gz ~/rpmbuild/SOURCES/nautilus-syncthing-1.0.0.tar.gz
+          rpmbuild -ba rpm/nautilus-syncthing.spec
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nautilus-syncthing-rpm-${{ github.sha }}
+          path: ~/rpmbuild/RPMS/**/*.rpm

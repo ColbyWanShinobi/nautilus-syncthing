@@ -1,0 +1,5 @@
+include LICENSE README.md
+recursive-include data *.py
+recursive-include data *.svg
+recursive-include systemd *.service
+recursive-include tests *.py

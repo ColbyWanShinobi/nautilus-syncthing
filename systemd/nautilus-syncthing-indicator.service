@@ -1,0 +1,12 @@
+[Unit]
+Description=Syncthing status indicator
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nautilus-syncthing-indicator
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

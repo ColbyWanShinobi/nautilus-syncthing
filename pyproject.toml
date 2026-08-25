@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nautilus-syncthing"
+version = "1.0.0"
+description = "Modern standalone Nautilus and status-indicator integration for Syncthing"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-2.0-or-later"
+authors = [{name = "Nautilus Syncthing contributors"}]
+classifiers = ["Programming Language :: Python :: 3"]
+
+[project.scripts]
+nautilus-syncthing-indicator = "nautilus_syncthing.indicator:main"
+nautilus-syncthing-status = "nautilus_syncthing.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
